@@ -115,7 +115,7 @@ public class GrabScriptVive : MonoBehaviour {
   void OnTriggerEnter(Collider other) {
     if(other.gameObject.GetComponent<GrabbableVive>() && !isGrabbing) {
 
-      if(currentlySelectedObject != null) {
+      if(currentlySelectedObject != null && other.gameObject == currentlySelectedObject) {
         currentlySelectedObject.GetComponent<GrabbableVive>().onHoverLeave();
       }
 

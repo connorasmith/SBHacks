@@ -3,6 +3,12 @@ using System.Collections;
 
 [RequireComponent(typeof(HighlightChildrenScript), typeof(Rigidbody), typeof(Collider))]
 public class ViveTurn : MonoBehaviour {
+  
+  public ParticleSystem fire;
+
+  private float rotVal = 0;
+  public float fireScale = 0.5f;
+
 
   public Vector3 turnAxes;
 
@@ -36,7 +42,6 @@ public class ViveTurn : MonoBehaviour {
 
   public void UpdateRotation(Vector3 delta) {
 
-
     delta.x *= turnAxes.x;
     delta.y *= turnAxes.y;
     delta.z *= turnAxes.z;
@@ -44,6 +49,35 @@ public class ViveTurn : MonoBehaviour {
     Vector3 rotChange = storedRotation + delta;
 
     this.transform.eulerAngles = rotChange;
+
+    float prevRotVal = rotVal;
+
+    if(delta.x > 0 || delta.y > 0 || delta.z > 0) {
+
+      rotVal += fireScale;
+    }
+
+    else if(delta.x < 0 || delta.x < 0 || delta.z < 0) {
+
+      Debug.Log("DECREASING");
+      rotVal -= fireScale;
+
+    }
+
+    fire.startSpeed = rotVal;
+
+    if (rotVal <= 0) {
+
+      rotVal = 0;
+      fire.Stop();
+
+    }
+
+    if (prevRotVal == 0 && rotVal != 0) {
+
+      fire.Play();
+
+    }
 
   }
 
@@ -59,4 +93,5 @@ public class ViveTurn : MonoBehaviour {
   public void onRelease() {
 
   }
+
 }
