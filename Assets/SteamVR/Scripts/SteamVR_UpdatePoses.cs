@@ -10,12 +10,11 @@ using Valve.VR;
 [RequireComponent(typeof(Camera))]
 public class SteamVR_UpdatePoses : MonoBehaviour
 {
-  /*
 	void Awake()
 	{
 		var camera = GetComponent<Camera>();
 #if !(UNITY_5_3 || UNITY_5_2 || UNITY_5_1 || UNITY_5_0)
-		camera.targetEye = TargetEyeMask.kTargetEyeMaskNone;
+	//	camera.targetEye = TargetEyeMask.kTargetEyeMaskNone;
 #endif
 		camera.clearFlags = CameraClearFlags.Nothing;
 		camera.useOcclusionCulling = false;
@@ -34,6 +33,5 @@ public class SteamVR_UpdatePoses : MonoBehaviour
 			SteamVR_Utils.Event.Send("new_poses_applied");
 		}
 	}
-  */
 }
 

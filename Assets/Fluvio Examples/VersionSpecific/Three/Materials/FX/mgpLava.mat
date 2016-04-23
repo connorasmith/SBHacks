@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: mgpLava
+  m_Shader: {fileID: 4800000, guid: d5fe39a306376441dafacc1b9cef29fa, type: 3}
+  m_ShaderKeywords: _ALPHATEST_ON _EMISSION _EMISSIONMAP _LIGHTMAPPING_DYNAMIC_LIGHTMAPS
+    _NORMALMAP _SPECGLOSSMAP _UVSEC_UV1 _VERTEXCOLORMODE_EMISSION
+  m_LightmapFlags: 1
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _BumpMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 9a6747eec57d9a0418e90b416771c8ba, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailAlbedoMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailMask
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailNormalMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _EmissionMap
+      second:
+        m_Texture: {fileID: 2800000, guid: fc2b5a68eedbb8647a1f0526b75c228f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 2800000, guid: 0bd557865907f594bb305d98af65ad3a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _OcclusionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ParallaxMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _SpecGlossMap
+      second:
+        m_Texture: {fileID: 2800000, guid: c7d3633e78aef234eae61e5cb24dc895, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _AlphaTestRef
+      second: 0.5
+    - first:
+        name: _BumpScale
+      second: 1
+    - first:
+        name: _CullFluid
+      second: -1
+    - first:
+        name: _Cutoff
+      second: 0.5
+    - first:
+        name: _Cutoff2
+      second: 0.25
+    - first:
+        name: _DetailNormalMapScale
+      second: 1
+    - first:
+        name: _DownsampleFactorUI
+      second: 1
+    - first:
+        name: _EmissionScaleUI
+      second: 4
+    - first:
+        name: _FluidBlurBackgroundUI
+      second: 0
+    - first:
+        name: _FluidBlurIterationsUI
+      second: 0
+    - first:
+        name: _FluidBlurSpreadUI
+      second: 0
+    - first:
+        name: _FluidBlurUI
+      second: 0
+    - first:
+        name: _FluidSpecularScaleUI
+      second: 0
+    - first:
+        name: _FluidThresholdUI
+      second: 1
+    - first:
+        name: _Glossiness
+      second: 0.03
+    - first:
+        name: _InvFade
+      second: 1
+    - first:
+        name: _Lightmapping
+      second: 1
+    - first:
+        name: _OcclusionStrength
+      second: 1
+    - first:
+        name: _Parallax
+      second: 0.02
+    - first:
+        name: _UVSec
+      second: 0
+    - first:
+        name: _VertexColorMode
+      second: 3
+    m_Colors:
+    - first:
+        name: _Color
+      second: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+    - first:
+        name: _EmissionColor
+      second: {r: 1.8778619, g: 1.8778619, b: 1.8778619, a: 1.8778619}
+    - first:
+        name: _EmissionColorUI
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _EmissionColorWithMapUI
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _FluidTintUI
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _SpecColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _SpecularColor
+      second: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - first:
+        name: _TintColor
+      second: {r: 1, g: 1, b: 1, a: 1}
