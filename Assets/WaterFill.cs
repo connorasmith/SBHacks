@@ -21,7 +21,6 @@ public class WaterFill : MonoBehaviour {
 
     if (other.GetComponent<FluidHolderScript>()) {
       if(waterSystem.emissionRate >= 5)
-        Debug.Log("FILLING");
       StartCoroutine(fill());
 
     }
@@ -37,10 +36,10 @@ public class WaterFill : MonoBehaviour {
 
     while(true) {
 
-      Debug.Log("COROUTINE");
+      //Debug.Log("COROUTINE");
       GameObject.Instantiate(waterSource, this.transform.position, Quaternion.identity);
 
-      yield return new WaitForSeconds(0.5f);
+      yield return new WaitForSeconds(0.5f / waterSystem.emissionRate);
     }
 
   }
