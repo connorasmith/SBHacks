@@ -21,8 +21,14 @@ public class BunsenHeat : MonoBehaviour {
     if (other.gameObject.GetComponent<FluidHolderScript>()) {
 
       FluidHolderScript fluid = other.gameObject.GetComponent<FluidHolderScript>();
+      Debug.Log(bunsen.startSpeed * heatRate);
       fluid.solution.temperature += (bunsen.startSpeed * heatRate);
 
+      if (fluid.solution.temperature > 200) {
+
+        fluid.solution.temperature = 200;
+
+      }
     }
   }
 }

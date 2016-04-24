@@ -9,7 +9,7 @@ public class ViveTurn : MonoBehaviour {
   public bool isFireKnob = true;
 
   private float rotVal = 0;
-  public float scale = 0.005f;
+  private float scale = 0.5f;
 
   public Vector3 turnAxes;
 
@@ -64,8 +64,14 @@ public class ViveTurn : MonoBehaviour {
 
     }
 
-    if (isFireKnob)
+    if(isFireKnob) {
       system.startSpeed = rotVal;
+      if (system.startSpeed > 35) {
+
+        system.startSpeed = 35f;
+
+      }
+    }
     if(!isFireKnob) {
 
       system.emissionRate = rotVal;

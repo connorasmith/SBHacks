@@ -52,15 +52,15 @@ public class GrabScriptVive : MonoBehaviour {
           //Setting throw velocities?
           var origin = trackedObj.origin ? trackedObj.origin : trackedObj.transform.parent;
           if(origin != null) {
-           // rigidbody.velocity = origin.TransformVector(device.velocity);
-           // rigidbody.angularVelocity = origin.TransformVector(device.angularVelocity) * .01f;
+            rigidbody.velocity = origin.TransformVector(device.velocity);
+            rigidbody.angularVelocity = origin.TransformVector(device.angularVelocity) * .01f;
           }
           else {
-           // rigidbody.velocity = device.velocity;
-           // rigidbody.angularVelocity = device.angularVelocity * .01f;
+            rigidbody.velocity = device.velocity;
+            rigidbody.angularVelocity = device.angularVelocity * .01f;
           }
 
-          //rigidbody.maxAngularVelocity = rigidbody.angularVelocity.magnitude;
+          rigidbody.maxAngularVelocity = rigidbody.angularVelocity.magnitude;
         }
       }
 
