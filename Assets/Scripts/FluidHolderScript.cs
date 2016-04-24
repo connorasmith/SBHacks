@@ -108,4 +108,12 @@ public class FluidHolderScript : MonoBehaviour {
         rend.material.shader = Shader.Find("FX/Water");
         rend.material.SetColor("_RefrColor", solution.getColor());
     }
+
+  public void changeLevel(float deltaLevel) {
+    solution.currentAmount += deltaLevel;
+
+    Debug.Log("rota" + (solution.currentAmount / maxAmount));
+    waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
+
+  }
 }

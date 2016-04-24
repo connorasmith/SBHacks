@@ -26,7 +26,6 @@ public class Solution : ScriptableObject{
 
         Color finalColor = new Color();
 
-
         for (int i = 0; i < liquidComponents.Count; i++)
         {
             finalColor += liquidComponents[i].color * liquidComponents[i].amount / totalAmount;

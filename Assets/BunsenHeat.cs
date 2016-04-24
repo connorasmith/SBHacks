@@ -5,6 +5,7 @@ public class BunsenHeat : MonoBehaviour {
 
   public ParticleSystem bunsen;
   public Object fireBurn;
+  public Object smoke;
   public float heatRate = 0.1f;
 
 
@@ -14,6 +15,7 @@ public class BunsenHeat : MonoBehaviour {
 
   bool audioPlayed = false;
   bool paperCoroutine = false;
+  bool boilCoroutine = false;
 
 
   // Use this for initialization
@@ -33,12 +35,19 @@ public class BunsenHeat : MonoBehaviour {
     if(other.gameObject.GetComponent<FluidHolderScript>()) {
 
       FluidHolderScript fluid = other.gameObject.GetComponent<FluidHolderScript>();
-      Debug.Log(bunsen.startSpeed * heatRate);
       fluid.solution.temperature += (bunsen.startSpeed * heatRate);
 
       if(fluid.solution.temperature > 200) {
 
         fluid.solution.temperature = 200;
+
+      }
+
+      if(fluid.solution.currentAmount >= fluid.maxAmount / 4 && fluid.solution.temperature > 100) {
+
+        Debug.Log("BOILING");
+        if (!boilCoroutine)
+        StartCoroutine(BoilWater(other));
 
       }
     }
@@ -61,12 +70,6 @@ public class BunsenHeat : MonoBehaviour {
         StartCoroutine(BurnPaper(other));
 
     }
-
-    else if (other.GetComponent<FluidHolderScript>()) {
-
-
-      
-    }
   }
 
   IEnumerator BurnPaper(Collider other) {
@@ -85,6 +88,30 @@ public class BunsenHeat : MonoBehaviour {
     GameObject.Destroy(other.gameObject);
 
     paperCoroutine = false;
+
+  }
+
+  IEnumerator BoilWater(Collider other) {
+
+    boilCoroutine = true;
+
+    Vector3 spawnPos = other.transform.position + new Vector3(0,2,0);
+
+
+    GameObject smokeObj = (GameObject)(GameObject.Instantiate(smoke, spawnPos, Quaternion.identity));
+      
+    smokeObj.transform.parent = other.transform;
+
+    while (other.GetComponent<FluidHolderScript>().solution.currentAmount > 0) {
+
+      other.GetComponent<FluidHolderScript>().changeLevel(-1f);
+      yield return new WaitForSeconds(0.1f);
+
+    }
+
+    GameObject.Destroy(smokeObj);
+
+    boilCoroutine = false;
 
   }
 }
