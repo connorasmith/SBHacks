@@ -49,7 +49,7 @@ public class FluidHolderScript : MonoBehaviour {
         float holdPercent = Mathf.Clamp((90 - largestAngle) / 90, 0f, 1f);
 
         //If we spilled some liquid spawn particles and a hitbox to catch!
-        if (holdPercent < solution.currentAmount / maxAmount)
+        if ((solution.currentAmount / maxAmount - holdPercent) > .01f)
         {
             float previousAmount = solution.currentAmount;
 
@@ -57,18 +57,34 @@ public class FluidHolderScript : MonoBehaviour {
             solution.currentAmount = Mathf.Clamp(solution.currentAmount, 0f, holdPercent * maxAmount);
 
             //The proportion lost.
-            float differenceProportion = previousAmount / solution.currentAmount;
+            float differenceProportion = (previousAmount - solution.currentAmount) / maxAmount;
+
+            Debug.Log("prev: " + previousAmount + " " + solution.currentAmount);
+
+            //If went to infinity, make zero.
+            if (differenceProportion > 1f)
+            {
+                differenceProportion = 0;
+            }
 
             //The actual amount lost.
             float differenceAmount = previousAmount - solution.currentAmount;
+
+            Vector3 spawnPos = transform.position - new Vector3(0,2,0);
 
             //This source adds the liquid to containers below. Note, can add more accurate positioning, i.e. corner of container. 
 
             GameObject source = (GameObject)Instantiate(liquidSourcePrefab, transform.position, Quaternion.identity);
 
             //The source will add the same solution, but different proportions, in fact the exact amount that was lost.
-            source.GetComponent<SolutionSource>().solutionToAdd = new Solution(solution);
+            Solution newSolution = ScriptableObject.CreateInstance<Solution>();
+            newSolution.init(solution);
+
+            Debug.Log("ddifwfe" + (1 - differenceProportion));
+
+            source.GetComponent<SolutionSource>().solutionToAdd = newSolution;
             source.GetComponent<SolutionSource>().solutionToAdd.multiplyByFactor(1- differenceProportion);
+            source.GetComponent<SolutionSource>().creator = this;
 
             //Finally, for this container, decrease the amount of solution available.
             solution.multiplyByFactor(differenceProportion);
@@ -84,6 +100,7 @@ public class FluidHolderScript : MonoBehaviour {
     {
         solution.addToSolution(other);
 
+        Debug.Log((solution.currentAmount / maxAmount));
         waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
 
         //Update color.

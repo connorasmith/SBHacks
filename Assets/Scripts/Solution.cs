@@ -13,6 +13,9 @@ public class Solution : ScriptableObject{
     //Temp in Celcius because fahrenheit is for nubs
     public float temperature = 0;
 
+
+
+
     /// <summary>
     /// Get the color of the liquid based on the colors of the components.
     /// </summary>
@@ -117,4 +120,23 @@ public class Solution : ScriptableObject{
     /// </summary>
     /// <param name="other"></param>
     public Solution(){}
+
+    /// <summary>
+    /// Solution copy ctor.
+    /// </summary>
+    /// <param name="other"></param>
+    public void init(Solution other)
+    {
+        //Set temperature.
+        this.temperature = other.temperature;
+
+        for (int i = 0; i < other.liquidComponents.Count; i++)
+        {
+            Liquid newLiquid = ScriptableObject.CreateInstance<Liquid>();
+            newLiquid.init(other.liquidComponents[i]);
+
+            this.liquidComponents.Add(newLiquid);
+        }
+        currentAmount = other.currentAmount;
+    }
 }

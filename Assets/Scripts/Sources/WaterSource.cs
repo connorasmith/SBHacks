@@ -17,9 +17,6 @@ public class WaterSource : SolutionSource {
         solution.addToSolution(sketchyWater);
 
         solutionToAdd = solution;
-
-        Debug.Log(solution.getColor());
-
     }
 
     // Update is called once per frame

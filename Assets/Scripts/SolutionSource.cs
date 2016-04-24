@@ -5,6 +5,8 @@ public class SolutionSource : MonoBehaviour {
 
     public Solution solutionToAdd;
 
+    public FluidHolderScript creator;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -18,7 +20,7 @@ public class SolutionSource : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         FluidHolderScript holder = other.GetComponent<FluidHolderScript>();
-        if (holder != null)
+        if (holder != null && holder != creator)
         {
             other.GetComponent<FluidHolderScript>().addToSolution(solutionToAdd);
             Destroy(this.gameObject);
