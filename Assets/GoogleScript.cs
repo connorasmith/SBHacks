@@ -22,6 +22,7 @@ public class GoogleScript : MonoBehaviour {
       other.transform.localEulerAngles = new Vector3(0, 0, 0);
       other.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
       other.GetComponent<FixedJoint>().connectedBody.GetComponent<GrabScriptVive>().Disconnect();
+      other.GetComponent<Rigidbody>().useGravity = false;
 
     }
 

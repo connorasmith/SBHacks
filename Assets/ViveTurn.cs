@@ -9,7 +9,7 @@ public class ViveTurn : MonoBehaviour {
   public bool isFireKnob = true;
 
   private float rotVal = 0;
-  public float scale = 0.3f;
+  public float scale = 0.005f;
 
   public Vector3 turnAxes;
 
