@@ -30,5 +30,11 @@ public class BunsenHeat : MonoBehaviour {
 
       }
     }
+
+    else if (other.gameObject.GetComponent<SteelFire>()) {
+
+      other.gameObject.GetComponent<SteelFire>().Explode();
+
+    }
   }
 }
