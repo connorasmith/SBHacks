@@ -87,7 +87,6 @@ public class ViveTurn : MonoBehaviour {
 
     if (prevRotVal == 0 && rotVal != 0) {
 
-      Debug.Log("HELLO");
       system.Play();
 
     }

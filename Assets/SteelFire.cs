@@ -38,5 +38,8 @@ public class SteelFire : MonoBehaviour {
 
       }
     }
+
+    this.GetComponent<ObjWeight>().weight = 10;
+
   }
 }
