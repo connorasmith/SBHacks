@@ -18,23 +18,24 @@ public class BunsenHeat : MonoBehaviour {
 
   void OnTriggerStay(Collider other) {
 
-    if (other.gameObject.GetComponent<FluidHolderScript>()) {
+    if(other.gameObject.GetComponent<FluidHolderScript>()) {
 
       FluidHolderScript fluid = other.gameObject.GetComponent<FluidHolderScript>();
       Debug.Log(bunsen.startSpeed * heatRate);
       fluid.solution.temperature += (bunsen.startSpeed * heatRate);
 
-      if (fluid.solution.temperature > 200) {
+      if(fluid.solution.temperature > 200) {
 
         fluid.solution.temperature = 200;
 
       }
     }
 
-    else if (other.gameObject.GetComponent<SteelFire>()) {
+    else if(other.gameObject.GetComponent<SteelFire>()) {
 
-      other.gameObject.GetComponent<SteelFire>().Explode();
-
+      if(bunsen.startSpeed >= 5) {
+        other.gameObject.GetComponent<SteelFire>().Explode();
+      }
     }
   }
 }

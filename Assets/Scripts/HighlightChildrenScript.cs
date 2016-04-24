@@ -8,6 +8,8 @@ using System.Collections.Generic;
 public class HighlightChildrenScript : MonoBehaviour
 {
 
+  public bool highlightChildren = true;
+
     public Color meshColor = new Color(1f, 1f, 1f, 0.5f);
     public Color outlineColor = new Color(1f, 1f, 0f, 1f);
 
@@ -23,8 +25,21 @@ public class HighlightChildrenScript : MonoBehaviour
         outlineObjects = new List<GameObject>();
         normalObjects = new List<GameObject>();
 
-        // Set all the original materials into normalMaterials.
-        MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
+    // Set all the original materials into normalMaterials.
+    MeshRenderer[] meshRenderers = new MeshRenderer[1];
+
+    if (highlightChildren) {
+
+      meshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+    }
+
+    else {
+
+      meshRenderers[0] = this.GetComponent<MeshRenderer>();
+
+    }
+
         for (int i = 0; i < meshRenderers.Length; i++)
         {
             normalObjects.Add(meshRenderers[i].gameObject);
