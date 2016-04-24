@@ -153,7 +153,7 @@ public class GrabScriptVive : MonoBehaviour {
 
     //var go = joint.gameObject;
     Rigidbody rigidbody = joint.gameObject.GetComponent<Rigidbody>();
-    Object.DestroyImmediate(joint);
+    Object.Destroy(joint);
     joint = null;
     return rigidbody;
   }

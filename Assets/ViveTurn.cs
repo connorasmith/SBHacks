@@ -3,12 +3,13 @@ using System.Collections;
 
 [RequireComponent(typeof(HighlightChildrenScript), typeof(Rigidbody), typeof(Collider))]
 public class ViveTurn : MonoBehaviour {
-  
-  public ParticleSystem fire;
+
+  public ParticleSystem system;
+
+  public bool isFireKnob = true;
 
   private float rotVal = 0;
-  public float fireScale = 0.5f;
-
+  private float scale = 0.5f;
 
   public Vector3 turnAxes;
 
@@ -54,27 +55,39 @@ public class ViveTurn : MonoBehaviour {
 
     if(delta.x > 0 || delta.y > 0 || delta.z > 0) {
 
-      rotVal += fireScale;
+      rotVal += scale;
     }
 
     else if(delta.x < 0 || delta.x < 0 || delta.z < 0) {
 
-      rotVal -= fireScale;
+      rotVal -= scale;
 
     }
 
-    fire.startSpeed = rotVal;
+    if(isFireKnob) {
+      system.startSpeed = rotVal;
+      if (system.startSpeed > 35) {
+
+        system.startSpeed = 35f;
+
+      }
+    }
+    if(!isFireKnob) {
+
+      system.emissionRate = rotVal;
+
+    }
 
     if (rotVal <= 0) {
 
       rotVal = 0;
-      fire.Stop();
+      system.Stop();
 
     }
 
     if (prevRotVal == 0 && rotVal != 0) {
 
-      fire.Play();
+      system.Play();
 
     }
 
