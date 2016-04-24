@@ -83,7 +83,9 @@ public class BunsenHeat : MonoBehaviour {
 
     yield return new WaitForSeconds(3.0f);
 
-    other.GetComponent<Joint>().connectedBody.GetComponent<GrabScriptVive>().Disconnect();
+    if(other.GetComponent<Joint>()) {
+      other.GetComponent<Joint>().connectedBody.GetComponent<GrabScriptVive>().Disconnect();
+    }
 
     GameObject.Destroy(other.gameObject);
 
