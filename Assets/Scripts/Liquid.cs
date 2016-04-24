@@ -38,17 +38,6 @@ public class Liquid : ScriptableObject
         color = inputColor;
         type = inputType;
     }
-
-    /// <summary>
-    /// Copy ctor for Liquid
-    /// </summary>
-    /// <param name="other"></param>
-    public void init(Liquid other)
-    {
-        amount = other.amount;
-        color = other.color;
-    }
-
 }
 
 public enum LiquidType {Water, Sodium };
