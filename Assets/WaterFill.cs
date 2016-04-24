@@ -8,11 +8,12 @@ public class WaterFill : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        StartCoroutine(fill());
+
+    }
+
+    // Update is called once per frame
+    void Update () {
 	
 	}
 

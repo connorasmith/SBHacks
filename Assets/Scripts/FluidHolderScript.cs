@@ -59,8 +59,6 @@ public class FluidHolderScript : MonoBehaviour {
             //The proportion lost.
             float differenceProportion = (previousAmount - solution.currentAmount) / maxAmount;
 
-            Debug.Log("prev: " + previousAmount + " " + solution.currentAmount);
-
             //If went to infinity, make zero.
             if (differenceProportion > 1f)
             {
@@ -79,8 +77,6 @@ public class FluidHolderScript : MonoBehaviour {
             //The source will add the same solution, but different proportions, in fact the exact amount that was lost.
             Solution newSolution = ScriptableObject.CreateInstance<Solution>();
             newSolution.init(solution);
-
-            Debug.Log("ddifwfe" + (1 - differenceProportion));
 
             source.GetComponent<SolutionSource>().solutionToAdd = newSolution;
             source.GetComponent<SolutionSource>().solutionToAdd.multiplyByFactor(1- differenceProportion);
