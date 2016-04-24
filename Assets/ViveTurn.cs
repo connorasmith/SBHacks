@@ -6,6 +6,8 @@ public class ViveTurn : MonoBehaviour {
 
   public ParticleSystem system;
 
+  private AudioSource audio;
+
   public bool isFireKnob = true;
 
   private float rotVal = 0;
@@ -23,6 +25,12 @@ public class ViveTurn : MonoBehaviour {
   public bool isActive;
 
   public float soundThreshold = .5f;
+
+  void Start() {
+
+    audio = this.GetComponent<AudioSource>();
+
+  }
 
   public void onHover() {
     GetComponent<HighlightChildrenScript>().makeTransparent();
@@ -72,6 +80,7 @@ public class ViveTurn : MonoBehaviour {
 
       }
     }
+
     if(!isFireKnob) {
 
       system.emissionRate = rotVal;
@@ -82,12 +91,16 @@ public class ViveTurn : MonoBehaviour {
 
       rotVal = 0;
       system.Stop();
+      audio.Stop();
+
+      
 
     }
 
     if (prevRotVal == 0 && rotVal != 0) {
 
       system.Play();
+      audio.Play();
 
     }
 
