@@ -494,12 +494,12 @@ PlayerSettings:
   - WebGL::template
   - additionalIl2CppArgs::additionalIl2CppArgs
   Analytics_ServiceEnabled::Analytics_ServiceEnabled: False
-  Build_ServiceEnabled::Build_ServiceEnabled: True
-  Collab_ServiceEnabled::Collab_ServiceEnabled: True
+  Build_ServiceEnabled::Build_ServiceEnabled: False
+  Collab_ServiceEnabled::Collab_ServiceEnabled: False
   ErrorHub_ServiceEnabled::ErrorHub_ServiceEnabled: False
   Hub_ServiceEnabled::Hub_ServiceEnabled: False
   Purchasing_ServiceEnabled::Purchasing_ServiceEnabled: False
-  UNet_ServiceEnabled::UNet_ServiceEnabled: True
+  UNet_ServiceEnabled::UNet_ServiceEnabled: False
   Unity_Ads_ServiceEnabled::Unity_Ads_ServiceEnabled: False
   WebGL::emscriptenArgs: 
   WebGL::template: APPLICATION:Default
