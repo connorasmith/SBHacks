@@ -34,6 +34,7 @@ public class SteelFire : MonoBehaviour {
         yield return new WaitForSeconds(0.2f);
         numExplosions++;
         explosions[i].Play();
+
         yield return null;
 
       }
