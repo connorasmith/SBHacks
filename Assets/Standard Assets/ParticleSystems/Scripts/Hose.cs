@@ -6,9 +6,9 @@ namespace UnityStandardAssets.Effects
 {
     public class Hose : MonoBehaviour
     {
-        public float maxPower = 0;
-        public float minPower = 0;
-        public float changeSpeed = 0;
+        public float maxPower = 20;
+        public float minPower = 5;
+        public float changeSpeed = 5;
         public ParticleSystem[] hoseWaterSystems;
         public Renderer systemRenderer;
 
@@ -18,7 +18,7 @@ namespace UnityStandardAssets.Effects
         // Update is called once per frame
         private void Update()
         {
-            m_Power = maxPower;//Mathf.Lerp(m_Power, Input.GetMouseButton(0) ? maxPower : minPower, Time.deltaTime*changeSpeed);
+            m_Power = Mathf.Lerp(m_Power, Input.GetMouseButton(0) ? maxPower : minPower, Time.deltaTime*changeSpeed);
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {

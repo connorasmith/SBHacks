@@ -53,11 +53,9 @@ public class Solution : ScriptableObject{
     /// <param name="factor">The amount to multiply by.</param>
     public void multiplyByFactor(float factor)
     {
-        Debug.Log("fact" + factor);
         for (int i = 0; i < liquidComponents.Count; i++)
         {
-            Debug.Log("count" + liquidComponents.Count);
-            liquidComponents[i].amount *= factor;
+            liquidComponents[i].amount += factor;
             Debug.Log(liquidComponents[i].amount);
         }
         //currentAmount *= factor;
@@ -110,25 +108,6 @@ public class Solution : ScriptableObject{
         }
         currentAmount = other.currentAmount;
     }
-
-    /// <summary>
-    /// Solution copy ctor.
-    /// </summary>
-    /// <param name="other"></param>
-    public void init(Solution other)
-    {
-        //Set temperature.
-        this.temperature = other.temperature;
-
-        for (int i = 0; i < other.liquidComponents.Count; i++)
-        {
-            Liquid newLiquid = ScriptableObject.CreateInstance<Liquid>();
-            newLiquid.init(other.liquidComponents[i]);
-            this.liquidComponents.Add(newLiquid);
-        }
-        currentAmount = other.currentAmount;
-    }
-
 
     /// <summary>
     /// Solution empty ctor. Basically nothing, everything is already initialized.

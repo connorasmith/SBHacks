@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 9a1e0b613e3510048af092952adf44bf
+labels:
+- ropes
+- quickrope
+- rope
+- quickropes
+- physics
+- tools
+- reveriejake
+- picogames
+- reverieinteractive
+- editor
+timeCreated: 1427570608
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - defaultPrefab: {fileID: 172330, guid: 57f32752e54254f4db313253c513a83a, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
