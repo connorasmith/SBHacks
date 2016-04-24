@@ -46,9 +46,9 @@ public class ViveTurn : MonoBehaviour {
     delta.y *= turnAxes.y;
     delta.z *= turnAxes.z;
 
-    Vector3 rotChange = storedRotation + delta;
+    Vector3 rotChange = delta;
 
-    this.transform.eulerAngles = rotChange;
+    this.transform.eulerAngles += rotChange;
 
     float prevRotVal = rotVal;
 
@@ -59,7 +59,6 @@ public class ViveTurn : MonoBehaviour {
 
     else if(delta.x < 0 || delta.x < 0 || delta.z < 0) {
 
-      Debug.Log("DECREASING");
       rotVal -= fireScale;
 
     }

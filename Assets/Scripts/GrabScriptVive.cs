@@ -17,7 +17,7 @@ public class GrabScriptVive : MonoBehaviour {
 
   //The info screen attached to this hand.
   public GameObject infoScreen;
-  
+
   //Keeps track of whether an object is being dragged, don't highlight things if you
   //are currently dragging.
   public bool isGrabbing = false;
@@ -26,93 +26,80 @@ public class GrabScriptVive : MonoBehaviour {
     trackedObj = GetComponent<SteamVR_TrackedObject>();
   }
 
-  void FixedUpdate() {
+  void Update() {
+
     var device = SteamVR_Controller.Input((int)trackedObj.index);
 
-    /*
-    //Handle info screens, only activate while holding button.
-    if(device.GetTouchDown(SteamVR_Controller.ButtonMask.ApplicationMenu))
-    {
-      infoScreen.SetActive(true);
-    }
+    if(currentlySelectedObject != null) {
 
-    if(device.GetTouchUp(SteamVR_Controller.ButtonMask.ApplicationMenu)) {
-      infoScreen.SetActive(false);
-    }
-    */
+      if(currentlySelectedObject.GetComponent<GrabbableVive>()) {
+        //Start grabbing. Update: No longer on GetTouchDown allowing for "sticky" hands. Though the sticky bug exists, with too slow collision detection.
+        if(joint == null && device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
+          currentlySelectedObject.GetComponent<GrabbableVive>().isActive = true;
 
-    if(currentlySelectedObject != null && currentlySelectedObject.GetComponent<GrabbableVive>()) {
-      //Start grabbing. Update: No longer on GetTouchDown allowing for "sticky" hands. Though the sticky bug exists, with too slow collision detection.
-      if(joint == null && device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
-        currentlySelectedObject.GetComponent<GrabbableVive>().isActive = true;
-
-        isGrabbing = true;
-        GameObject grabbedObject = currentlySelectedObject;
-        grabbedObject.GetComponent<GrabbableVive>().onGrab();
-
-        joint = grabbedObject.AddComponent<FixedJoint>();
-        joint.connectedBody = this.gameObject.GetComponent<Rigidbody>();
-      }
-
-      //Stop grabbing.
-      else if(joint != null && device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger)) {
-        Rigidbody rigidbody = Disconnect();
-
-        //Setting throw velocities?
-        var origin = trackedObj.origin ? trackedObj.origin : trackedObj.transform.parent;
-        if(origin != null) {
-          rigidbody.velocity = origin.TransformVector(device.velocity);
-          rigidbody.angularVelocity = origin.TransformVector(device.angularVelocity) * .01f;
-        }
-        else {
-          rigidbody.velocity = device.velocity;
-          rigidbody.angularVelocity = device.angularVelocity * .01f;
-        }
-
-        rigidbody.maxAngularVelocity = rigidbody.angularVelocity.magnitude;
-      }
-    }
-
-    else if (currentlySelectedObject != null && currentlySelectedObject.GetComponent<ViveTurn>()) {
-
-      Debug.Log("HERE");
-
-      if(device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
-
-        Debug.Log("SOMEWHERE");
-
-        if(!grabbed) {
-
-          Debug.Log("NOT GRABBED");
-
+          isGrabbing = true;
           GameObject grabbedObject = currentlySelectedObject;
-          grabbedObject.GetComponent<ViveTurn>().onGrab();
-          grabbed = true;
+          grabbedObject.GetComponent<GrabbableVive>().onGrab();
+
+          joint = grabbedObject.AddComponent<FixedJoint>();
+          joint.connectedBody = this.gameObject.GetComponent<Rigidbody>();
+        }
+
+        //Stop grabbing.
+        else if(joint != null && device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger)) {
+          Rigidbody rigidbody = Disconnect();
+
+          //Setting throw velocities?
+          var origin = trackedObj.origin ? trackedObj.origin : trackedObj.transform.parent;
+          if(origin != null) {
+            rigidbody.velocity = origin.TransformVector(device.velocity);
+            rigidbody.angularVelocity = origin.TransformVector(device.angularVelocity) * .01f;
+          }
+          else {
+            rigidbody.velocity = device.velocity;
+            rigidbody.angularVelocity = device.angularVelocity * .01f;
+          }
+
+          rigidbody.maxAngularVelocity = rigidbody.angularVelocity.magnitude;
+        }
+      }
+
+      else if( currentlySelectedObject.GetComponent<ViveTurn>()) {
+
+        if(device.GetTouchDown(SteamVR_Controller.ButtonMask.Trigger)) {
+
+          if(!grabbed) {
+
+            GameObject grabbedObject = currentlySelectedObject;
+            grabbedObject.GetComponent<ViveTurn>().onGrab();
+            grabbed = true;
+            grabStartRotation = this.transform.localEulerAngles;
+
+          }
+        }
+
+        else if(device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger)) {
+
+          grabbed = false;
+          currentlySelectedObject.GetComponent<ViveTurn>().onHoverLeave();
+
+        }
+
+        if(grabbed) {
+
+          Vector3 rotDelta = this.transform.localEulerAngles - grabStartRotation;
+          currentlySelectedObject.GetComponent<ViveTurn>().UpdateRotation(rotDelta);
           grabStartRotation = this.transform.localEulerAngles;
 
         }
-      }
-
-      else if (device.GetTouchUp(SteamVR_Controller.ButtonMask.Trigger)) {
-
-        grabbed = false;
-        currentlySelectedObject.GetComponent<ViveTurn>().onHoverLeave();
-
-      }
-
-      if (grabbed) {
-
-        Debug.Log("THERE");
-        Vector3 rotDelta = this.transform.localEulerAngles - grabStartRotation;
-        currentlySelectedObject.GetComponent<ViveTurn>().UpdateRotation(rotDelta);
-
       }
     }
   }
 
   //All grabbing code is in fixed update, but this sets it up so that fixed update
   //Knows the closest object.
-  void OnTriggerEnter(Collider other) {
+  void OnTriggerStay(Collider other) {
+
     if(other.gameObject.GetComponent<GrabbableVive>() && !isGrabbing) {
 
       if(currentlySelectedObject != null && other.gameObject == currentlySelectedObject) {
@@ -123,7 +110,7 @@ public class GrabScriptVive : MonoBehaviour {
       other.gameObject.GetComponent<GrabbableVive>().onHover();
     }
 
-    else if (other.gameObject.GetComponent<ViveTurn>() && !isGrabbing) {
+    else if(other.gameObject.GetComponent<ViveTurn>() && !isGrabbing) {
 
       currentlySelectedObject = other.gameObject;
       other.gameObject.GetComponent<ViveTurn>().onHover();
@@ -141,17 +128,16 @@ public class GrabScriptVive : MonoBehaviour {
       }
     }
 
-    else if (other.GetComponent<ViveTurn>() && !isGrabbing) {
+    else if(other.GetComponent<ViveTurn>() && !isGrabbing) {
 
       other.GetComponent<ViveTurn>().onHoverLeave();
 
-      if (other.gameObject == currentlySelectedObject) {
+      if(other.gameObject == currentlySelectedObject) {
 
         currentlySelectedObject = null;
         grabbed = false;
-        
-      }
 
+      }
     }
   }
 
