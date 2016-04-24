@@ -12,6 +12,12 @@ public class FluidHolderScript : MonoBehaviour {
     //When pouring out, this will be instantiated to do the pouring.
     public GameObject liquidSourcePrefab;
 
+    //A visible water object for when there's stuff in this holder.
+    public GameObject waterObject;
+
+    public Vector3 start = new Vector3(0.0f, 0.0f, 0.0f);
+    public Vector3 end = new Vector3(0.0f, 1.0f, 0.0f);
+
 	// Use this for initialization
 	void Start () {
         solution = ScriptableObject.CreateInstance<Solution>();
@@ -66,6 +72,8 @@ public class FluidHolderScript : MonoBehaviour {
 
             //Finally, for this container, decrease the amount of solution available.
             solution.multiplyByFactor(differenceProportion);
+
+            waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
             
             // Debug.Log(holdPercent);
         }
@@ -75,5 +83,12 @@ public class FluidHolderScript : MonoBehaviour {
     public void addToSolution(Solution other)
     {
         solution.addToSolution(other);
+
+        waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
+
+        //Update color.
+        Renderer rend = waterObject.GetComponent<Renderer>();
+        rend.material.shader = Shader.Find("FX/Water");
+        rend.material.SetColor("_RefrColor", solution.getColor());
     }
 }

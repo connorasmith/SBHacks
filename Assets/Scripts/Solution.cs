@@ -55,8 +55,8 @@ public class Solution : ScriptableObject{
     {
         for (int i = 0; i < liquidComponents.Count; i++)
         {
-            liquidComponents[i].amount += factor;
-            Debug.Log(liquidComponents[i].amount);
+            liquidComponents[i].amount *= factor;
+            //Debug.Log(liquidComponents[i].amount);
         }
         //currentAmount *= factor;
     }
@@ -104,7 +104,10 @@ public class Solution : ScriptableObject{
 
         for (int i = 0; i < other.liquidComponents.Count; i++)
         {
-            this.liquidComponents.Add(new Liquid(other.liquidComponents[i]));
+            Liquid newLiquid = ScriptableObject.CreateInstance<Liquid>();
+            newLiquid.init(other.liquidComponents[i]);
+
+            this.liquidComponents.Add(newLiquid);
         }
         currentAmount = other.currentAmount;
     }
