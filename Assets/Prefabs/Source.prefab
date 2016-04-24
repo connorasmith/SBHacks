@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solutionToAdd: {fileID: 0}
+  parent: {fileID: 0}
 --- !u!114 &114000012119378084
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2093,7 +2094,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012386942678}
   serializedVersion: 2
-  lengthInSec: 10
+  lengthInSec: 100000
   startDelay:
     scalar: 0
     maxCurve:
@@ -2472,7 +2473,7 @@ ParticleSystem:
       minMaxState: 3
     randomizeRotationDirection: 0
     gravityModifier: 0.25
-    maxNumParticles: 10000
+    maxNumParticles: 100
     size3D: 1
     rotation3D: 0
   ShapeModule:

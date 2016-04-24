@@ -98,7 +98,7 @@ PlayerSettings:
   xboxOneDisableKinectGpuReservation: 0
   singlePassStereoRendering: 0
   protectGraphicsMemory: 0
-  productGUID: d559c7d145682744eb1f34f65e9480df
+  productGUID: 3cfcfb04ca0951e4ab23cff5cf7b8aa1
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
@@ -494,11 +494,7 @@ PlayerSettings:
   - WebGL::template
   - additionalIl2CppArgs::additionalIl2CppArgs
   Analytics_ServiceEnabled::Analytics_ServiceEnabled: False
-<<<<<<< HEAD
-  Build_ServiceEnabled::Build_ServiceEnabled: False
-=======
   Build_ServiceEnabled::Build_ServiceEnabled: True
->>>>>>> ec5602b6f33d27d206a90fee00fc10309e374554
   Collab_ServiceEnabled::Collab_ServiceEnabled: True
   ErrorHub_ServiceEnabled::ErrorHub_ServiceEnabled: False
   Hub_ServiceEnabled::Hub_ServiceEnabled: False
@@ -546,12 +542,7 @@ PlayerSettings:
   XboxOne::VR::enabledDevices: []
   iOS::VR::enabledDevices: []
   tvOS::VR::enabledDevices: []
-<<<<<<< HEAD
-  cloudProjectId: f441a2aa-eb3a-4be4-88eb-33853a4c6157
-  projectName: SBHacks (1)
-=======
   cloudProjectId: f30bde02-2198-4846-a225-60d3966c9097
   projectName: SBHacks
->>>>>>> ec5602b6f33d27d206a90fee00fc10309e374554
   organizationId: hitchhackers
   cloudEnabled: 0
