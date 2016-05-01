@@ -26,4 +26,10 @@ public class SolutionSource : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
+
+    //On hitting something spawn splash.
+    void OnCollisionEnter()
+    {
+        Destroy(this.gameObject);
+    }
 }

@@ -15,17 +15,22 @@ public class FluidHolderScript : MonoBehaviour {
     //A visible water object for when there's stuff in this holder.
     public GameObject waterObject;
 
+    public GameObject sourceSpawnObject;
+
     public Vector3 start = new Vector3(0.0f, 0.0f, 0.0f);
     public Vector3 end = new Vector3(0.0f, 1.0f, 0.0f);
 
 	// Use this for initialization
 	void Start () {
         solution = ScriptableObject.CreateInstance<Solution>();
-        //solution = new Solution();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        updateWaterImage();
+
+
+    }
+
+    // Update is called once per frame
+    void Update () {
         //If tilted, then pour portion of liquid out based on percentage.
 
         float xAngle = transform.rotation.eulerAngles.x;
@@ -68,25 +73,43 @@ public class FluidHolderScript : MonoBehaviour {
             //The actual amount lost.
             float differenceAmount = previousAmount - solution.currentAmount;
 
-            Vector3 spawnPos = transform.position - new Vector3(0,2,0);
+            Vector3 spawnPos = sourceSpawnObject.GetComponent<Collider>().bounds.min;//transform.position + new Vector3(0,3 ,0);
+
+           // Debug.Log(spawnPos);
+
+            //Vector3 spawnPos = transform.position + new Vector3(0,3 ,0);
+            Debug.Log(spawnPos);
 
             //This source adds the liquid to containers below. Note, can add more accurate positioning, i.e. corner of container. 
 
-            GameObject source = (GameObject)Instantiate(liquidSourcePrefab, transform.position, Quaternion.identity);
+            GameObject source = (GameObject)Instantiate(liquidSourcePrefab, spawnPos, Quaternion.identity);
 
             //The source will add the same solution, but different proportions, in fact the exact amount that was lost.
             Solution newSolution = ScriptableObject.CreateInstance<Solution>();
             newSolution.init(solution);
 
             source.GetComponent<SolutionSource>().solutionToAdd = newSolution;
-            source.GetComponent<SolutionSource>().solutionToAdd.multiplyByFactor(1- differenceProportion);
+            source.GetComponent<SolutionSource>().solutionToAdd.multiplyByFactor(differenceProportion);
             source.GetComponent<SolutionSource>().creator = this;
 
             //Finally, for this container, decrease the amount of solution available.
-            solution.multiplyByFactor(differenceProportion);
+            solution.multiplyByFactor(1-differenceProportion);
 
-            waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
+            updateWaterImage();
+
+
+            /*waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
             
+            if (solution.currentAmount == 0)
+            {
+                waterObject.SetActive(false);
+            }
+
+            else
+            {
+                waterObject.SetActive(true);
+
+            }*/
             // Debug.Log(holdPercent);
         }
 
@@ -97,7 +120,8 @@ public class FluidHolderScript : MonoBehaviour {
         solution.addToSolution(other);
 
         Debug.Log((solution.currentAmount / maxAmount));
-        waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
+        //waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
+        updateWaterImage();
 
         //Update color.
         Renderer rend = waterObject.GetComponent<Renderer>();
@@ -112,4 +136,20 @@ public class FluidHolderScript : MonoBehaviour {
     waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
 
   }
+
+    private void updateWaterImage()
+    {
+        waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
+
+        if (solution.currentAmount == 0)
+        {
+            waterObject.SetActive(false);
+        }
+
+        else
+        {
+            waterObject.SetActive(true);
+
+        }
+    }
 }

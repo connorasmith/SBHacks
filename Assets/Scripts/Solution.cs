@@ -13,9 +13,6 @@ public class Solution : ScriptableObject{
     //Temp in Celcius because fahrenheit is for nubs
     public float temperature = 0;
 
-
-
-
     /// <summary>
     /// Get the color of the liquid based on the colors of the components.
     /// </summary>
@@ -32,7 +29,6 @@ public class Solution : ScriptableObject{
         }
         return finalColor;
     }
-
     
     /// <summary>
     /// Get the total amount of liquid including components.

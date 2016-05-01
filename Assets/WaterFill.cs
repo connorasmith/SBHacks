@@ -27,10 +27,14 @@ public class WaterFill : MonoBehaviour {
   }
 
   void OnTriggerExit(Collider other) {
+        if (other.GetComponent<FluidHolderScript>())
+        {
+            StopAllCoroutines();
 
-    StopAllCoroutines();
 
-  }
+        }
+
+    }
 
   IEnumerator fill() {
 
