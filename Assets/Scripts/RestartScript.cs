@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class RestartScript : MonoBehaviour {
 
@@ -11,7 +12,7 @@ public class RestartScript : MonoBehaviour {
   // Update is called once per frame
   void Update() {
     if(Input.GetKeyDown("r")) {
-      Application.LoadLevel(0);
+      SceneManager.LoadScene(0);
     }
   }
 }
