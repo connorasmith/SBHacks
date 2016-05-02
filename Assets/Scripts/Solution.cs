@@ -7,7 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 public class Solution : ScriptableObject{
     public List<Liquid> liquidComponents = new List<Liquid>();
-    public float currentAmount = 0;
+    private float currentAmount = 0;
 
 
     //Temp in Celcius because fahrenheit is for nubs
@@ -51,11 +51,19 @@ public class Solution : ScriptableObject{
     /// <param name="factor">The amount to multiply by.</param>
     public void multiplyByFactor(float factor)
     {
-        for (int i = 0; i < liquidComponents.Count; i++)
-        {
-            liquidComponents[i].amount *= factor;
-            //Debug.Log(liquidComponents[i].amount);
-        }
+    //If factor is about 0, then empty the beaker.
+    if(factor <= .01) {
+      liquidComponents.Clear();
+      currentAmount = 0;
+    }
+
+    else {
+      for(int i = 0; i < liquidComponents.Count; i++) {
+        liquidComponents[i].amount *= factor;
+        currentAmount = getAmount();
+        //Debug.Log(liquidComponents[i].amount);
+      }
+    }
         //currentAmount *= factor;
     }
 
@@ -68,11 +76,16 @@ public class Solution : ScriptableObject{
         //Set temperature.
         this.temperature = temperature * currentAmount + other.temperature * other.currentAmount;
 
-        for (int i = 0; i < other.liquidComponents.Count; i++)
-        {
-            liquidComponents.Add(other.liquidComponents[i]);
-        }
+    Debug.Log("pre" + currentAmount);
 
+    for(int i = 0; i < other.liquidComponents.Count; i++)
+        {
+      addToSolution(other.liquidComponents[i]);
+            //liquidComponents.Add(other.liquidComponents[i]);
+      Debug.Log("adding" + other.liquidComponents[i].amount);
+
+    }
+    Debug.Log("post" + currentAmount);
         currentAmount = getAmount();
 
     }
