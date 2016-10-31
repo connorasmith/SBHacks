@@ -54,31 +54,38 @@ public class FluidHolderScript : MonoBehaviour {
         float holdPercent = Mathf.Clamp((90 - largestAngle) / 90, 0f, 1f);
 
         //If we spilled some liquid spawn particles and a hitbox to catch!
-        if ((solution.currentAmount / maxAmount - holdPercent) > .01f)
+        if ((solution.getAmount() / maxAmount - holdPercent) > .01f)
         {
-            float previousAmount = solution.currentAmount;
+            float previousAmount = solution.getAmount();
 
+      float newAmount = solution.getAmount();
+            
             //Clamp the actual amount to be between 0 and the rotated amount
-            solution.currentAmount = Mathf.Clamp(solution.currentAmount, 0f, holdPercent * maxAmount);
+            newAmount = Mathf.Clamp(solution.getAmount(), 0f, holdPercent * maxAmount);
+
+      float newProportion = newAmount / maxAmount;
+
+      Debug.Log(newAmount);
 
             //The proportion lost.
-            float differenceProportion = (previousAmount - solution.currentAmount) / maxAmount;
+            //float differenceProportion = (previousAmount -newAmount) / maxAmount;
+
+      //Debug.Log(differenceProportion); 
 
             //If went to infinity, make zero.
-            if (differenceProportion > 1f)
+            /*if (differenceProportion > 1f)
             {
                 differenceProportion = 0;
-            }
+            }*/
 
             //The actual amount lost.
-            float differenceAmount = previousAmount - solution.currentAmount;
+            float differenceAmount = previousAmount - newAmount;
 
             Vector3 spawnPos = sourceSpawnObject.GetComponent<Collider>().bounds.min;//transform.position + new Vector3(0,3 ,0);
 
            // Debug.Log(spawnPos);
 
             //Vector3 spawnPos = transform.position + new Vector3(0,3 ,0);
-            Debug.Log(spawnPos);
 
             //This source adds the liquid to containers below. Note, can add more accurate positioning, i.e. corner of container. 
 
@@ -89,12 +96,12 @@ public class FluidHolderScript : MonoBehaviour {
             newSolution.init(solution);
 
             source.GetComponent<SolutionSource>().solutionToAdd = newSolution;
-            source.GetComponent<SolutionSource>().solutionToAdd.multiplyByFactor(differenceProportion);
+            source.GetComponent<SolutionSource>().solutionToAdd.multiplyByFactor(1 - newProportion);
             source.GetComponent<SolutionSource>().creator = this;
 
             //Finally, for this container, decrease the amount of solution available.
-            solution.multiplyByFactor(1-differenceProportion);
-
+            solution.multiplyByFactor(newProportion);
+      Debug.Log(solution.getAmount());
             updateWaterImage();
 
 
@@ -119,7 +126,7 @@ public class FluidHolderScript : MonoBehaviour {
     {
         solution.addToSolution(other);
 
-        Debug.Log((solution.currentAmount / maxAmount));
+        //Debug.Log((solution.currentAmount / maxAmount));
         //waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
         updateWaterImage();
 
@@ -130,18 +137,22 @@ public class FluidHolderScript : MonoBehaviour {
     }
 
   public void changeLevel(float deltaLevel) {
-    solution.currentAmount += deltaLevel;
+    float differenceProportion = 1 / maxAmount;
 
-    Debug.Log("rota" + (solution.currentAmount / maxAmount));
-    waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
+    solution.multiplyByFactor(1 - differenceProportion);
 
+    //solution.currentAmount += deltaLevel;
+
+    //Debug.Log("rota" + (solution.currentAmount / maxAmount));
+    //waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
+    updateWaterImage();
   }
 
     private void updateWaterImage()
     {
-        waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.currentAmount / maxAmount));
+        waterObject.transform.localPosition = Vector3.Lerp(start, end, (solution.getAmount() / maxAmount));
 
-        if (solution.currentAmount == 0)
+        if (solution.getAmount() == 0)
         {
             waterObject.SetActive(false);
         }

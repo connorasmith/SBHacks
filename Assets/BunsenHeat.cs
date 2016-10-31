@@ -43,7 +43,7 @@ public class BunsenHeat : MonoBehaviour {
 
       }
 
-      if(fluid.solution.currentAmount >= fluid.maxAmount / 4 && fluid.solution.temperature > 100) {
+      if(fluid.solution.getAmount() >= fluid.maxAmount / 4 && fluid.solution.temperature > 100) {
 
         Debug.Log("BOILING");
         if (!boilCoroutine)
@@ -104,7 +104,7 @@ public class BunsenHeat : MonoBehaviour {
       
     smokeObj.transform.parent = other.transform;
 
-    while (other.GetComponent<FluidHolderScript>().solution.currentAmount > 0) {
+    while (other.GetComponent<FluidHolderScript>().solution.getAmount() > 0) {
 
       other.GetComponent<FluidHolderScript>().changeLevel(-1f);
       yield return new WaitForSeconds(0.1f);
