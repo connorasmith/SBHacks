@@ -220,7 +220,7 @@ namespace PicoGames.QuickRopes
             rigidbody.collisionDetectionMode = rigidbodySettings.collisionDetection;
             rigidbody.constraints = rigidbodySettings.constraints;
 
-            rigidbody.solverIterationCount = rigidbodySettings.solverCount;
+            rigidbody.solverIterations = rigidbodySettings.solverCount;
 
             if (!rigidbody.isKinematic)
             {

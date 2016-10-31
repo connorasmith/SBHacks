@@ -3,10 +3,22 @@ guid: a97bdcf094fff104d9f67b004b505dd0
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: //RootNode
+    100002: BuckyBallAtoms
+    100004: BuckyBallLines
+    400000: //RootNode
+    400002: BuckyBallAtoms
+    400004: BuckyBallLines
+    2300000: BuckyBallAtoms
+    2300002: BuckyBallLines
+    3300000: BuckyBallAtoms
+    3300002: BuckyBallLines
     4300000: Atoms
     4300002: Lines
     4300004: BuckyBallLines
     4300006: BuckyBallAtoms
+    7400000: Default Take
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 3

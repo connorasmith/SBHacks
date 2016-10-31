@@ -3,8 +3,20 @@ guid: 4a1142b17f64bbc40871f76529421f77
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
+    100000: //RootNode
+    100002: AtomBallLines
+    100004: AtomBallSpheres
+    400000: //RootNode
+    400002: AtomBallLines
+    400004: AtomBallSpheres
+    2300000: AtomBallLines
+    2300002: AtomBallSpheres
+    3300000: AtomBallLines
+    3300002: AtomBallSpheres
     4300000: AtomBallSpheres
     4300002: AtomBallLines
+    7400000: Default Take
+    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 3
